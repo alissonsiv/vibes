@@ -17,6 +17,10 @@ const __dirname = path.dirname(__filename)
 // Conexão com o banco de dados
 import conn from './db/conn.js'
 
+// Importa models
+import Vibe from './models/Vibes.js'
+import User from './models/User.js'
+
 // Inicialização do FileStore para sessões
 const FileStore = FileStoreInit(session)
 
