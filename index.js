@@ -22,10 +22,12 @@ import Vibe from "./models/Vibe.js";
 import User from "./models/User.js";
 
 // IMporta rota
-import VibesRoutes from './routes/vibesRoutes.js'
+import vibesRoutes from './routes/vibesRoutes.js'
+import authRoutes from './routes/authRoutes.js'
 
 // import controller
 import VibesController from "./controllers/VibesController.js";
+
 
 
 // Inicialização do FileStore para sessões
@@ -76,7 +78,8 @@ app.use((req, res, next) => {
 
 
 // Rota
-app.use('/Vibes', VibesRoutes)
+app.use('/Vibes', vibesRoutes)
+app.use('/', authRoutes)
 
 app.get('/', VibesController.showVibes)
 
