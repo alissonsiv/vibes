@@ -85,7 +85,7 @@ app.get('/', VibesController.showVibes)
 
 // Conexão com o banco e inicialização do servidor
 conn
-  .sync({force: true})
+  .sync()
   .then(() => {
     app.listen(3000, () => console.log("Servidor rodando na porta 3000"));
   })
