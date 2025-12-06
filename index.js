@@ -29,7 +29,6 @@ import authRoutes from './routes/authRoutes.js'
 import VibesController from "./controllers/VibesController.js";
 
 
-
 // Inicialização do FileStore para sessões
 const FileStore = FileStoreInit(session);
 
@@ -69,7 +68,7 @@ app.use(flash());
 
 // Middleware para disponibilizar a sessão na view
 app.use((req, res, next) => {
-  if (req.session.userId) {
+  if (req.session.userid) {
     res.locals.session = req.session;
   }
 
