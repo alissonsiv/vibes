@@ -57,7 +57,6 @@ app.use(
     cookie: {
       secure: false, // HTTP (não HTTPS)
       maxAge: 3600000, // validade da sessão
-      expires: new Date(Date.now() + 360000), // data de expiração
       httpOnly: true, // impede acesso via JS no frontend
     },
   })
