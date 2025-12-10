@@ -76,8 +76,8 @@ app.use((req, res, next) => {
 
 
 // Rota
-app.use('/Vibes', vibesRoutes)
 app.use('/', authRoutes)
+app.use('/Vibes', vibesRoutes)
 
 app.get('/', VibesController.showVibes)
 
