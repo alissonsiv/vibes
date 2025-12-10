@@ -8,6 +8,40 @@ export default class AuthController {
         res.render('auth/login')
     }
 
+    // Formulário de login
+    static async loginPost(req, res){
+        const {email, password} = req.body
+
+        // Busca usuário pelo e-mail
+        const user = await User.findOne({where: {email: email}})
+
+        if (!user){
+            req.flash('message', 'Usuário não encontrado!')
+            res.render('auth/login')
+
+            return
+        }
+
+       // Verifica se a senha informada corresponde ao hash armazenado
+        const passwordMatch = bcrypt.compareSync(password, user.password)
+
+        if (!passwordMatch){
+            req.flash('message', 'Senha inválida!')
+            res.render('auth/login')
+
+            return
+        }
+
+        // Inicializa sessão com ID do usuário
+        req.session.userid = user.id
+        req.flash('message', 'Autenticação realizada com sucesso!')
+
+        // Salva sessão e redireciona para a página inicial
+        req.session.save(() => {
+            res.redirect('/')
+        })
+    }
+
     // Renderiza a página de registro de usuário
     static register(req, res){
         res.render('auth/register')
