@@ -119,6 +119,24 @@ form input[type='submit']:hover,
     color: #FFF;
 }
 
+/* CREATE / EDIT FORM */
+
+.vibe-form-container a {
+    color: #f6982f;
+}
+
+.vibe-form-container h1 {
+    margin: 1em 0;
+    color: #fff;
+    border-left: 4px solid #f6982f;
+    padding: 0.3em;
+}
+
+.vibe-form-container form {
+    max-width: 30%;
+    margin-top: 1.5em;
+}
+
 /* FOOTER */
 footer {
     height: 150px;
