@@ -3,6 +3,14 @@ import User from '../models/User.js'
 
 export default class VibesController {
     static async showVibes(req, res){
-        res.render('Vibes/home')
+        res.render('vibes/home')
+    }
+
+    static async dashboard(req, res){
+        res.render('vibes/dashboard')
+    }
+
+    static createVibe(req, res){
+        res.render('vibes/create')
     }
 }
