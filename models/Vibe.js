@@ -5,7 +5,7 @@ import User from './User.js'
 
 // Define o model Vibe
 const Vibe = db.define('Vibe', {
-    type: {
+    title: {
         type: DataTypes.STRING,
         allowNull: false
     }
