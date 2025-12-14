@@ -7,7 +7,23 @@ export default class VibesController {
     }
 
     static async dashboard(req, res){
-        res.render('vibes/dashboard')
+        const userId = req.session.userid
+
+        const user = await User.findOne({
+            where: {
+                id: userId
+            },
+            include: Vibe,
+            plain: true
+        })
+
+        if (!user){
+            res.redirect('/login')
+        }
+
+        const vibes = user.Vibes.map((result) => result.dataValues)
+        
+        res.render('vibes/dashboard', {vibes})
     }
 
     static createVibe(req, res){
