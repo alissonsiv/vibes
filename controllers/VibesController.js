@@ -23,7 +23,13 @@ export default class VibesController {
 
         const vibes = user.Vibes.map((result) => result.dataValues)
         
-        res.render('vibes/dashboard', {vibes})
+        let emptyVibes = false
+
+        if (vibes.length === 0){
+            emptyVibes = true
+        }
+
+        res.render('vibes/dashboard', {vibes, emptyVibes})
     }
 
     static createVibe(req, res){
@@ -53,9 +59,7 @@ export default class VibesController {
     static async removeVibe(req, res){
         const id = req.body.id
         const UserId = req.session.userid
-
         
-
         try {
             await Vibe.destroy({where: {id: id, Userid: UserId}})
 
