@@ -49,4 +49,23 @@ export default class VibesController {
         }
 
     }
+
+    static async removeVibe(req, res){
+        const id = req.body.id
+        const UserId = req.session.userid
+
+        
+
+        try {
+            await Vibe.destroy({where: {id: id, Userid: UserId}})
+
+            req.flash('message', 'Pensamento removido com sucesso!')
+
+            req.session.save(() => {
+                res.redirect('/vibes/dashboard')
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
 }

@@ -13,6 +13,7 @@ checkAuth.checkAuth
 router.get('/add', checkAuth, VibesController.createVibe)
 router.post('/add', checkAuth, VibesController.createVibeSave)
 router.get('/dashboard', checkAuth, VibesController.dashboard)
+router.post('/remove', checkAuth, VibesController.removeVibe)
 router.get('/', VibesController.showVibes);
 
 export default router;
