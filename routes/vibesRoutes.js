@@ -7,11 +7,13 @@ const router = express.Router();
 // helpers
 
 import checkAuth from '../helpers/auth.js'
+import Vibe from '../models/Vibe.js';
 checkAuth.checkAuth
 
 // Rotas
 router.get('/add', checkAuth, VibesController.createVibe)
 router.post('/add', checkAuth, VibesController.createVibeSave)
+router.get('/edit/:id', checkAuth, VibesController.updateVibe)
 router.get('/dashboard', checkAuth, VibesController.dashboard)
 router.post('/remove', checkAuth, VibesController.removeVibe)
 router.get('/', VibesController.showVibes);

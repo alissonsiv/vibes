@@ -72,4 +72,15 @@ export default class VibesController {
             console.log(err)
         }
     }
+
+    static async updateVibe(req, res){
+        const id = req.params.id
+        console.log(id)
+
+        const vibe = await Vibe.findOne({where: {id: id}, raw: true})
+        
+        console.log(vibe)
+
+        res.render('vibes/edit', {vibe})
+    }
 }
