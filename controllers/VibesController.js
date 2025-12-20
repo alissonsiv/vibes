@@ -83,4 +83,24 @@ export default class VibesController {
 
         res.render('vibes/edit', {vibe})
     }
+
+    static async updateVibeSave(req, res){
+        const id = req.body.id
+
+        const vibe = {
+            title: req.body.title
+        }
+
+        try {
+            await Vibe.update(vibe, {where: {id: id}})
+
+            req.flash('message', 'Pensamento atualizado com sucesso!')
+
+            req.session.save(() => {
+                res.redirect('/vibes/dashboard')
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
 }
