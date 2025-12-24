@@ -1,1 +1,14 @@
-<h1>Olá!</h1>
+<div class="home-header">
+    <h1>Vibes</h1>
+</div>
+
+<div class="vibes-container">
+    {{#each vibes}}
+        <figure>
+            <blockquote>
+                "{{this.title}}"
+            </blockquote>
+            <figcaption>por <span>{{this.User.name}}</span></figcaption>
+        </figure>
+    {{/each}}
+</div>
