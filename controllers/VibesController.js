@@ -2,18 +2,28 @@ import Vibe from "../models/Vibe.js";
 import User from '../models/User.js'
 
 export default class VibesController {
+    // Exibe todos os vibes cadastrados
     static async showVibes(req, res){
-        res.render('vibes/home')
+        const vibesData = await Vibe.findAll({
+            include: User, // Faz join com o model User
+        })
+
+        // Converte os dados para objetos simples
+        const vibes = vibesData.map((result) => result.get({plain: true}))
+
+        res.render('vibes/home', {vibes})
     }
 
+    // Exibe a dashboard do usuário logado
     static async dashboard(req, res){
-        const userId = req.session.userid
+        const userId = req.session.userid // ID do usuário salvo na sessão
 
+        // Busca o usuário e seus vibes
         const user = await User.findOne({
             where: {
                 id: userId
             },
-            include: Vibe,
+            include: Vibe, // Inclui os vibes relacionados ao usuário
             plain: true
         })
 
@@ -21,10 +31,12 @@ export default class VibesController {
             res.redirect('/login')
         }
 
+        // Converte vibes retornados para um formato mais simples
         const vibes = user.Vibes.map((result) => result.dataValues)
         
         let emptyVibes = false
 
+        // Verifica se o usuário não possui vibes
         if (vibes.length === 0){
             emptyVibes = true
         }
@@ -32,6 +44,7 @@ export default class VibesController {
         res.render('vibes/dashboard', {vibes, emptyVibes})
     }
 
+    // Renderiza o formulário de criação de um novo vibe
     static createVibe(req, res){
         res.render('vibes/create')
     }
@@ -56,6 +69,7 @@ export default class VibesController {
 
     }
 
+    // Remove um vibe do usuário
     static async removeVibe(req, res){
         const id = req.body.id
         const UserId = req.session.userid
@@ -73,6 +87,7 @@ export default class VibesController {
         }
     }
 
+    // Renderiza a página de edição de um vibe
     static async updateVibe(req, res){
         const id = req.params.id
         console.log(id)
@@ -84,6 +99,7 @@ export default class VibesController {
         res.render('vibes/edit', {vibe})
     }
 
+    // Salva as alterações feitas no vibe
     static async updateVibeSave(req, res){
         const id = req.body.id
 
