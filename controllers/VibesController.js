@@ -1,17 +1,34 @@
 import Vibe from "../models/Vibe.js";
 import User from '../models/User.js'
 
+import { Op } from 'sequelize'
+
 export default class VibesController {
     // Exibe todos os vibes cadastrados
     static async showVibes(req, res){
+        let search = ''
+
+        if (req.query.search){
+            search = req.query.search
+        }
+
         const vibesData = await Vibe.findAll({
             include: User, // Faz join com o model User
+            where: {
+                title: {[Op.like]: `%${search}%`}
+            }
         })
 
         // Converte os dados para objetos simples
         const vibes = vibesData.map((result) => result.get({plain: true}))
 
-        res.render('vibes/home', {vibes})
+        let vibesQty =  vibes.length
+
+        if (vibesQty === 0){
+            vibesQty = false
+        }
+
+        res.render('vibes/home', {vibes, search, vibesQty})
     }
 
     // Exibe a dashboard do usuário logado
