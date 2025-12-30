@@ -28,7 +28,6 @@ import authRoutes from './routes/authRoutes.js'
 // import controller
 import VibesController from "./controllers/VibesController.js";
 
-
 // Inicialização do FileStore para sessões
 const FileStore = FileStoreInit(session);
 
@@ -83,7 +82,7 @@ app.get('/', VibesController.showVibes)
 
 // Conexão com o banco e inicialização do servidor
 conn
-  .sync()
+  .sync({force: true})
   .then(() => {
     app.listen(3000, () => console.log("Servidor rodando na porta 3000"));
   })

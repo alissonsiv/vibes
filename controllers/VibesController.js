@@ -12,11 +12,20 @@ export default class VibesController {
             search = req.query.search
         }
 
+        let order = "DESC"
+        
+        if (req.query.order === 'old'){
+            order = 'ASC'
+        } else {
+            order = 'DESC'
+        }
+
         const vibesData = await Vibe.findAll({
             include: User, // Faz join com o model User
             where: {
                 title: {[Op.like]: `%${search}%`}
-            }
+            },
+            order: [['createdAt', order]]
         })
 
         // Converte os dados para objetos simples
